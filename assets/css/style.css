@@ -1,0 +1,14 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* this is the question that is currently showing */
+.show {
+}
+
+/* This is all the other questions that are not currently showing */
+.hide {
+  display: none;
+}
