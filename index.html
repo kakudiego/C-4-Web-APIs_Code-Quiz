@@ -7,73 +7,29 @@
     <title>JavaScript Code Quiz</title>
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
-  <header class="scores-time">
-    <button id="high-scores" class="btn">View high scores</button>
-    <p id="timer">Time:</p>
+  <header class="score-time">
+    <button id="high-scores" class="btn">Leaderboard</button>
+    <p id="timer">Timer</p>
   </header>
   <body>
     <main class="content">
-
-      <section class="show">
-        <h1>Welcome to the code quiz</h1>
-        <button> Start Game </button>    <!-- When user presses button, javascript will show the questions-->
+      <section class="welcome">
+        <h1>Coding Quiz Challenge</h1>
+        <p>quiz description placeholder</p>
+        <button id="start-game">Start Game</button>
+        <!-- When user presses button, javascript will show the questions-->
       </section>
-
       <!-- When the game starts, you will loop through the possible questions with javascript -->
       <section class="quiz">
-        <div id="q1" class="hide">    <!-- You can change classes with javascript-->
-          <h3>Question 1</h3>
+        <div id="question" class="questions">
+          <!-- You can change classes with javascript-->
+          <h3>Question 1 placeholder</h3>
           <ul>
-            <li>
-              <p>option</p>
-            </li>
-            <li>
-              <p>option</p>
-            </li>
-            <li>
-              <p>option</p>
-            </li>
-            <li>
-              <p>option</p>
-            </li>
+            <li>option 1 placeholder</li>
           </ul>
-        </div>
-        <div id="q2" class="hide">
-          <h3>Question 2</h3>
-        </div>
-        <div id="q3" class="hide">
-          <h3>Question 3</h3>
-        </div>
-        <div id="q4" class="hide">
-          <h3>Question 4</h3>
-        </div>
-        <div id="q5" class="hide">
-          <h3>Question 5</h3>
-        </div>
-        <div id="q6" class="hide">
-          <h3>Question 6</h3>
-        </div>
-        <div id="q7" class="hide">
-          <h3>Question 7</h3>
-        </div>
-        <div id="q8" class="hide">
-          <h3>Question 8</h3>
-        </div>
-        <div id="q9" class="hide">
-          <h3>Question 9</h3>
-        </div>
-        <div id="q10" class="hide">
-          <h3>Question 10</h3>
-        </div>
-        <div id="done" class="hide">
-          <h3>All Done!</h3>
-          <p>Your score is:</p>
-          <p>Enter name or initials:<input id="input"></input><button id="submit">Submit</button></p>
-        </div>
-        <div id="timeout" class="hide">
-          <h3>Timeout!</h3>
         </div>
       </section>
     </main>
+    <script src="./assets/js/code-quiz.js"></script>
   </body>
 </html>

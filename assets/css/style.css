@@ -2,13 +2,43 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-/* this is the question that is currently showing */
-.show {
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 10px;
+  padding: 10px;
 }
 
-/* This is all the other questions that are not currently showing */
-.hide {
-  display: none;
+header button {
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+header p {
+  font-size: 20px;
+  font-weight: bold;
+}
+.welcome {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.welcome h1 {
+  font-size: 40px;
+}
+
+.welcome p {
+  font-size: 26px;
+}
+
+#start-game {
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 5px;
 }
