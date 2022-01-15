@@ -13,16 +13,20 @@ header {
   padding: 10px;
 }
 
-header button {
+.btn {
+  color: white;
   font-size: 20px;
   font-weight: bold;
   border-radius: 5px;
+  background-color: darkorchid;
+  box-shadow: 5px 5px 10px black;
 }
 
 header p {
   font-size: 20px;
   font-weight: bold;
 }
+
 .welcome {
   display: flex;
   align-items: center;
@@ -35,10 +39,10 @@ header p {
 
 #description {
   font-size: 26px;
+  margin: 15px;
+  padding: 15px;
 }
 
-#start-game {
-  font-size: 20px;
-  font-weight: bold;
-  border-radius: 5px;
+#startBtn {
+  padding: 10px;
 }
