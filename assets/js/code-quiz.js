@@ -10,13 +10,87 @@ let codeQuizDescription = document.createElement("p");
 let startBtn = document.createElement("BUTTON");
 
 // questions
-let questionEl = document.createElement("div");
-let questionQuestion = document.createElement("h2");
-let questionList = document.createElement("ol");
-let question1 = document.createElement("li");
-let question2 = document.createElement("li");
-let question3 = document.createElement("li");
-let question4 = document.createElement("li");
+let questionEl = document.createElement("div"); // wrap the question
+let questionQuestion = document.createElement("h2"); // the question
+let questionList = document.createElement("ul"); // unordered list for the options
+// let question1 = document.createElement("li"); // each options
+// let questionOptions1 = document.createElement("li");
+// let question2 = document.createElement("li");
+// let question3 = document.createElement("li");
+// let question4 = document.createElement("li");
+
+const questionBank = [
+  {
+    question1: "How to insert a comment that has more than one line?",
+    option1: "/*This comment has correct more than one line*/", //correct
+    option2: "<!--This comment has more than one line-->",
+    option3: "//This comment has more than one line//",
+    option4: "--This comment has more than one line--",
+  },
+  {
+    question2: "Inside which HTML element do we put the JavaScript?",
+    option1: "<script>", // correct
+    option2: "<js>",
+    option3: "<scripting>",
+    option4: "<javascript>",
+  },
+  {
+    question3: 'How do you write "Hello World" in an alert box?',
+    option1: 'alert("Hello World")', //correct
+    option2: 'msgBox("Hello World")',
+    option3: 'msg("Hello World")',
+    option4: 'alertBox("Hello World")',
+  },
+  {
+    question4: 'How to write an IF statement for executing some code if "i" is NOT equal to 5?',
+    option1: "if (i <> 5)",
+    option2: "if (i != 5)", // correct
+    option3: "if i =! 5 then",
+    option4: "if i <> 5",
+  },
+  {
+    question5: '',
+    option1: '',
+    option2: '',
+    option3: '',
+    option4: '',
+  }
+  {
+    question6: '',
+    option1: '',
+    option2: '',
+    option3: '',
+    option4: '',
+  }
+  {
+    question7: '',
+    option1: '',
+    option2: '',
+    option3: '',
+    option4: '',
+  }
+  {
+    question8: '',
+    option1: '',
+    option2: '',
+    option3: '',
+    option4: '',
+  }
+  {
+    question9: '',
+    option1: '',
+    option2: '',
+    option3: '',
+    option4: '',
+  }
+  {
+    question10: '',
+    option1: '',
+    option2: '',
+    option3: '',
+    option4: '',
+  }
+];
 
 // new elements' classes and id's
 welcome.className = "welcome";
@@ -26,10 +100,12 @@ startBtn.setAttribute("id", "startBtn");
 startBtn.className = "btn";
 questionEl.className = "question";
 questionList.className = "qList";
-question1.setAttribute("id", "q1");
-question2.setAttribute("id", "q2");
-question3.setAttribute("id", "q3");
-question4.setAttribute("id", "q4");
+questionList.setAttribute = ("id", "questionList");
+// question1.setAttribute("id", "q1");
+// questionOptions1.setAttribute("id", "q1");
+// question2.setAttribute("id", "q2");
+// question3.setAttribute("id", "q3");
+// question4.setAttribute("id", "q4");
 
 // add text to new elements
 codeQuizWelcome.textContent = "Coding Quiz Challenge";
@@ -42,7 +118,9 @@ welcome.appendChild(codeQuizWelcome);
 welcome.appendChild(codeQuizDescription);
 welcome.appendChild(startBtn);
 
-//let startGameBtn = document.querySelector("#startBtn");
+questionQuestion.textContent = "How to insert a comment that has more than one line?";
+
+//questionOptions1 = ["/*This comment has correct more than one line*/", "<!--This comment has more than one line-->", "//This comment has more than one line//", "--This comment has more than one line--"];
 
 // setup the score timer onclick
 let startGameBtn = (startBtn.onclick = function () {
@@ -64,12 +142,11 @@ let startGameBtn = (startBtn.onclick = function () {
   document.querySelector("#description").remove();
   document.querySelector("#startBtn").remove();
 
-  questionQuestion.textContent = "How to insert a comment that has more than one line?";
-  question1.textContent = "/*This comment has more than one line*/";
+  //question1.textContent = question1Options;
 
   body.appendChild(questionEl);
   questionEl.appendChild(questionQuestion);
-  questionEl.appendChild(question1);
+  questionEl.appendChild();
 });
 
 // let removeWelcome = (startBtn.onclick = function () {
@@ -80,31 +157,6 @@ let startGameBtn = (startBtn.onclick = function () {
 // };
 
 // questions
-// How to insert a comment that has more than one line?
-// /*This comment has    correct
-// more than one line*/
-// <!--This comment has
-// more than one line-->
-// //This comment has
-// more than one line//
-
-// Inside which HTML element do we put the JavaScript?
-// <script>    correct
-// <js>
-// <scripting>
-// <javascript>
-
-// How do you write "Hello World" in an alert box?
-// alert("Hello World");     correct
-// msgBox("Hello World");
-// msg("Hello World");
-// alertBox("Hello World");
-
-// How to write an IF statement for executing some code if "i" is NOT equal to 5?
-// if (i <> 5)
-// if (i != 5)     correct
-// if i =! 5 then
-// if i <> 5
 
 // How does a FOR loop start?
 // for (i = 0; i <= 5; i++)     correct
