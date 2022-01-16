@@ -1,5 +1,5 @@
 // select timer and scores button
-let timerEl = document.querySelector("#timer");
+
 let leaderboardBtn = document.querySelector("#leaderboard");
 
 // welcome quiz
@@ -22,118 +22,65 @@ let question2 = document.createElement("li");
 let question3 = document.createElement("li");
 let question4 = document.createElement("li");
 
-// correct under the question
+// correct msg under the question
 let correctMsg = document.createElement("p");
-correctMsg.className = "correct-msg";
+correctMsg.className = "correct-wrong";
 correctMsg.setAttribute("id", "correctmsg");
 correctMsg.textContent = "Correct";
 
+//wrong msg under the question
+let wrongMsg = document.createElement("p");
+wrongMsg.className = "correct-wrong";
+wrongMsg.setAttribute("id", "wrongmsg");
+wrongMsg.textContent = "Incorrect";
+
+// questions pool, array of objects with 3 properties each
 const questionBank = [
-  {
-    question0: "How to insert a comment that has more than one line?",
-    option1: "/*This comment has correct more than one line*/", //correct
-    option2: "<!--This comment has more than one line-->",
-    option3: "//This comment has more than one line//",
-    option4: "--This comment has more than one line--",
-  },
-  {
-    question1: "Inside which HTML element do we put the JavaScript?",
-    option1: "<script>", // correct
-    option2: "<js>",
-    option3: "<scripting>",
-    option4: "<javascript>",
-  },
-  {
-    question2: 'How do you write "Hello World" in an alert box?',
-    option2: 'msgBox("Hello World")',
-    option3: 'msg("Hello World")',
-    option1: 'alert("Hello World")', //correct
-    option4: 'alertBox("Hello World")',
-  },
-  {
-    question3: 'How to write an IF statement for executing some code if "i" is NOT equal to 5?',
-    option1: "if (i <> 5)",
-    option2: "if (i != 5)", // correct
-    option3: "if i =! 5 then",
-    option4: "if i <> 5",
-  },
-  {
-    question4: "How does a FOR loop start?",
-    option1: "for i = 1 to 5",
-    option2: "for (i = 0; i <= 5; i++)", //correct
-    option3: "for (i <= 5; i++)",
-    option4: "for (i = 0; i <= 5)",
-  },
-  {
-    question5: "Which operator is used to assign a value to a variable?",
-    option1: "-",
-    option2: "x",
-    option3: "*",
-    option4: "=", // correct
-  },
-  {
-    question6: "(function(){return typeof arguments; })();",
-    option1: "undefined",
-    option2: "arguments",
-    option3: "array",
-    option4: "object", // correct
-  },
-  {
-    question7: "What is the correct way to write a JavaScript array?",
-    option1: 'var colors = 1 = ("red"), 2 = ("green"), 3 = ("blue")',
-    option2: 'var colors = (1:"red", 2:"green", 3:"blue")',
-    option3: 'var colors = "red", "green", "blue"',
-    option4: 'var colors = ["red", "green", "blue"]', // correct
-  },
-  {
-    question8: "How do you round the number 7.25, to the nearest integer?",
-    option1: "Math.round(7.25)", // correct
-    option2: "round(7.25)",
-    option3: "Math.rnd(7.25)",
-    option4: "rnd(7.25)8",
-  },
-  {
-    question9: "How do you find the number with the highest value of x and y?",
-    option1: "ceil(x, y)",
-    option2: "Math.max(x, y)", //correct
-    option3: "Math.ceil(x, y)",
-    option4: "top(x, y)",
-  },
+  { question: "How to insert a comment that has more than one line?", answers: ["/*This comment has correct more than one line*/", "<!--This comment has more than one line-->", "//This comment has more than one line//", "--This comment has more than one line--"], correctAnswer: "answer1" },
+  { question: "Inside which HTML element do we put the JavaScript?", answers: ["<script>", "<js>", "<scripting>", "<javascript>"], correctAnswer: "answer1" },
+  { question: 'How do you write "Hello World" in an alert box?', answers: ['msgBox("Hello World")', 'msg("Hello World")', 'alert("Hello World")', 'alertBox("Hello World")'], correctAnswer: "answer3" },
+  { question: 'How to write an IF statement for executing some code if "i" is NOT equal to 5?', answers: ["if (i <> 5)", "if (i != 5)", "if i =! 5 then", "if i <> 5"], correctAnswer: "answer2" },
+  { question: "How does a FOR loop start?", answers: ["for i = 1 to 5", "for (i = 0; i <= 5; i++)", "for (i <= 5; i++)", "for (i = 0; i <= 5)"], correctAnswer: "answer2" },
+  { question: "Which operator is used to assign a value to a variable?", answers: ["-", "x", "*", "="], correctAnswer: "answer4" },
+  { question: "(function(){return typeof arguments; })();", answers: ["undefined", "arguments", "array", "object"], correctAnswer: "answer4" },
+  { question: "What is the correct way to write a JavaScript array?", answers: ['var colors = 1 = ("red"), 2 = ("green"), 3 = ("blue")', 'var colors = (1:"red", 2:"green", 3:"blue")', 'var colors = "red", "green", "blue"', 'var colors = ["red", "green", "blue"]'], correctAnswer: "answer4" },
+  { question: "How do you round the number 7.25, to the nearest integer?", answers: ["Math.round(7.25)", "round(7.25)", "Math.rnd(7.25)", "rnd(7.25)8"], correctAnswer: "answer1" },
+  { question: "How do you find the number with the highest value of x and y?", answers: ["ceil(x, y)", "Math.max(x, y)", "Math.ceil(x, y)", "top(x, y)"], correctAnswer: "answer2" },
 ];
 
-// how to call questionBank array
-console.log(questionBank[9]);
-console.log(questionBank[9].question9);
-console.log(questionBank[9].option1);
-console.log(questionBank[9].option2);
-console.log(questionBank[9].option3);
-console.log(questionBank[9].option4);
-
-let question9 = function () {};
-console.log(question9);
+// console.log questionBank array
+// console.log(questionBank);
+// console.log(questionBank[0]);
+// console.log(questionBank[0].question);
+// console.log(questionBank[0].answers[0]);
 
 // new elements' classes and id's
 welcome.className = "welcome";
 codeQuizWelcome.setAttribute("id", "title");
 codeQuizDescription.setAttribute("id", "description");
+
+//start game button class and id
 startBtn.setAttribute("id", "startbtn");
 startBtn.className = "btn";
+let startGameBtn = document.querySelector("#startbtn");
+
+//
 questionQuestion.className = "questquest";
 questionQuestion.setAttribute("id", "thequestion");
 questionEl.className = "question";
 questionList.className = "qlist";
 questionList.setAttribute("id", "questionlist");
-question1.setAttribute("id", "q1");
-question2.setAttribute("id", "q2");
-question3.setAttribute("id", "q3");
-question4.setAttribute("id", "q4");
+// question1.setAttribute("id", "q1");
+// question2.setAttribute("id", "q2");
+// question3.setAttribute("id", "q3");
+// question4.setAttribute("id", "q4");
 
 // add text to welcome elements
 codeQuizWelcome.textContent = "Coding Quiz Challenge";
 codeQuizDescription.textContent = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score time by 10 seconds!";
 startBtn.textContent = "Start Game";
 
-// first question test
+// first question just for testing
 questionQuestion.textContent = "question 1";
 question1.textContent = "a";
 question2.textContent = "b";
@@ -146,40 +93,56 @@ welcome.appendChild(codeQuizWelcome);
 welcome.appendChild(codeQuizDescription);
 welcome.appendChild(startBtn);
 
-// setup the score timer onclick
-let startGameBtn = (startBtn.onclick = function () {
-  let timeLeft = 5;
+// timer section
+let timerEl = document.querySelector("#timer");
+let time = 5;
 
+// timer function
+function timer() {
   let timeInterval = setInterval(function () {
-    console.log(timeLeft);
-    timerEl.textContent = "Timer: " + timeLeft;
-    timeLeft--;
+    timerEl.textContent = "Timer: " + time;
+    time--;
 
-    if (timeLeft < -1) {
-      timerEl.textContent = "Timer: 90";
+    if (time < -1) {
       alert("Times Up!");
       clearInterval(timeInterval);
+      timerEl.textContent = "Timer: 60";
     }
   }, 1000);
-  // remove DOM elements after onclick
-  document.querySelector("#title").remove();
-  document.querySelector("#description").remove();
-  document.querySelector("#startbtn").remove();
+}
 
-  //add wrap div to the body
-  body.appendChild(questionEl);
-  // add question h2 to the wrap div
-  questionEl.appendChild(questionQuestion);
-  //add ol to the wrap div
-  questionEl.appendChild(questionList);
-  // add li to the ol
-  questionList.appendChild(question1);
-  questionList.appendChild(question2);
-  questionList.appendChild(question3);
-  questionList.appendChild(question4);
-  // correct wrong msg
-  body.appendChild(correctWrong);
+// start button function, start the countdown and shows first questions
+startBtn.addEventListener("click", function () {
+  //start timer
+  timer();
 });
+
+// questions function
+// let showQuestion =
+
+//   // remove DOM elements after onclick
+//   document.querySelector("#title").remove();
+//   document.querySelector("#description").remove();
+//   document.querySelector("#startbtn").remove();
+
+//   //add wrap div to the body
+//   body.appendChild(questionEl);
+
+//   // add question h2 to the wrap div
+//   questionEl.appendChild(questionQuestion);
+
+//   //add ol to the wrap div
+//   questionEl.appendChild(questionList);
+
+//   // add li to the ol
+//   questionList.appendChild(question1);
+//   questionList.appendChild(question2);
+//   questionList.appendChild(question3);
+//   questionList.appendChild(question4);
+
+//   // massage after selecting answer
+//   body.appendChild(correctMsg);
+// });
 
 // let removeWelcome = (startBtn.onclick = function () {
 // });
