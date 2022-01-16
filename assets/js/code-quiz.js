@@ -1,5 +1,4 @@
 // select timer and scores button
-
 let leaderboardBtn = document.querySelector("#leaderboard");
 
 // welcome quiz
@@ -36,7 +35,7 @@ wrongMsg.textContent = "Incorrect";
 
 // questions pool, array of objects with 3 properties each
 const questionBank = [
-  { question: "How to insert a comment that has more than one line?", answers: ["/*This comment has correct more than one line*/", "<!--This comment has more than one line-->", "//This comment has more than one line//", "--This comment has more than one line--"], correctAnswer: "answer1" },
+  { question: "How to insert a comment that has more than one line?", answers: ["/*This comment has correct more than one line*/", "!--This comment has more than one line--!", "//This comment has more than one line//", "--This comment has more than one line--"], correctAnswer: "1" },
   { question: "Inside which HTML element do we put the JavaScript?", answers: ["<script>", "<js>", "<scripting>", "<javascript>"], correctAnswer: "answer1" },
   { question: 'How do you write "Hello World" in an alert box?', answers: ['msgBox("Hello World")', 'msg("Hello World")', 'alert("Hello World")', 'alertBox("Hello World")'], correctAnswer: "answer3" },
   { question: 'How to write an IF statement for executing some code if "i" is NOT equal to 5?', answers: ["if (i <> 5)", "if (i != 5)", "if i =! 5 then", "if i <> 5"], correctAnswer: "answer2" },
@@ -60,11 +59,18 @@ codeQuizWelcome.setAttribute("id", "title");
 codeQuizDescription.setAttribute("id", "description");
 
 //start game button class and id
+let startGameBtn = document.querySelector("#startbtn");
 startBtn.setAttribute("id", "startbtn");
 startBtn.className = "btn";
-let startGameBtn = document.querySelector("#startbtn");
+startBtn.textContent = "Start Game";
 
-//
+// submit button class and id
+let submitBtn = document.querySelector("#submitbtn");
+// submitBtn.setAttribute("id", "submitbtn");
+// submitBtn.className = "btn";
+// submitBtn.textContent = "Submit";
+
+// question div and ol, class and id
 questionQuestion.className = "questquest";
 questionQuestion.setAttribute("id", "thequestion");
 questionEl.className = "question";
@@ -78,16 +84,15 @@ questionList.setAttribute("id", "questionlist");
 // add text to welcome elements
 codeQuizWelcome.textContent = "Coding Quiz Challenge";
 codeQuizDescription.textContent = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score time by 10 seconds!";
-startBtn.textContent = "Start Game";
 
 // first question just for testing
-questionQuestion.textContent = "question 1";
-question1.textContent = "a";
-question2.textContent = "b";
-question3.textContent = "c";
-question4.textContent = "d";
+// questionQuestion.textContent = "question 1";
+// question1.textContent = "a";
+// question2.textContent = "b";
+// question3.textContent = "c";
+// question4.textContent = "d";
 
-// display as HTML elements
+// display first screen elements
 body.appendChild(welcome);
 welcome.appendChild(codeQuizWelcome);
 welcome.appendChild(codeQuizDescription);
@@ -98,37 +103,84 @@ let timerEl = document.querySelector("#timer");
 let time = 5;
 
 // timer function
-function timer() {
-  let timeInterval = setInterval(function () {
-    timerEl.textContent = "Timer: " + time;
-    time--;
+// function timer() {
+//   let timeInterval = setInterval(function () {
+//     timerEl.textContent = "Timer: " + time;
+//     time--;
 
-    if (time < -1) {
-      alert("Times Up!");
-      clearInterval(timeInterval);
-      timerEl.textContent = "Timer: 60";
-    }
-  }, 1000);
-}
-
-// start button function, start the countdown and shows first questions
-let startTheGame = startBtn.addEventListener("click", function () {
-  //start timer
-  timer();
-});
-
-// questions function
-// let showQuestion =
+//     if (time < -1) {
+//       alert("Times Up!");
+//       clearInterval(timeInterval);
+//       timerEl.textContent = "Timer: 60";
+//     }
+//   }, 1000);
+// }
 
 //remove DOM elements after onclick
-let removeWelcome = function () {
+function removeWelcome() {
   document.querySelector("#title").remove();
   document.querySelector("#description").remove();
   document.querySelector("#startbtn").remove();
-};
+}
 
-//   //add wrap div to the body
-//   body.appendChild(questionEl);
+function removeOldQuesiton() {
+  let clearChoices = document.querySelectorAll(".choices").remove();
+  questionEl.remove(clearChoices);
+  // document.querySelector("").remove();
+  // document.querySelector("").remove();
+}
+
+//add wrap div to the body
+body.appendChild(questionEl);
+
+//accumulator variable to count loops through questions
+let questionsNumber = 0;
+
+// questions function
+function showQuestion() {
+  console.log("new question!");
+  // template literal
+  questionEl.innerHTML += `<h1> ${questionBank[questionsNumber].question} </h1> 
+  <button class="choice" data-choice="1"> ${questionBank[questionsNumber].answers[0]} </button> 
+  <button class="choice" data-choice="2"> ${questionBank[questionsNumber].answers[1]} </button> 
+  <button class="choice" data-choice="3"> ${questionBank[questionsNumber].answers[2]} </button> 
+  <button class="choice" data-choice="4"> ${questionBank[questionsNumber].answers[3]} </button>`;
+
+  // select all answer buttons
+  const choices = document.querySelectorAll(".choice");
+  // add event listener to all answer choice buttons
+  for (let i = 0; i < choices.length; i++) {
+    choices[i].addEventListener("click", function () {
+      console.log(this.getAttribute("data-choice"));
+      console.log(questionBank[0].correctAnswer);
+      console.log(this.getAttribute("data-choice") == questionBank[0].correctAnswer);
+
+      // we are now evaluating if the answer choice is correct or not. If answer is correct, add points to score.
+      // next, use if/else if block to do this
+
+      // remove HTML of current question
+      //THIS IS NOT WORKING YET !!!!!!
+      removeOldQuesiton();
+      // run function again to make new question
+      //showQuestion();
+    });
+
+    //add 1 to current question number
+    questionsNumber = questionsNumber + 1;
+  }
+}
+
+// start button function when click start button
+let startGame = startBtn.addEventListener("click", function () {
+  //start timer
+  //timer();
+  removeWelcome();
+
+  // we need to loop through questions
+  for (let i; questionBank.length; i++) {
+    showQuestion();
+  }
+});
 
 //   // add question h2 to the wrap div
 //   questionEl.appendChild(questionQuestion);
@@ -159,7 +211,7 @@ let removeWelcome = function () {
 //   function byId(id) {
 //     return document.getElementById(id);
 //   }
-//   byId('submitter').onclick = function() {
+//   byId('submitbtn').onclick = function() {
 
 //     var wrongAnswers = [ ];
 
