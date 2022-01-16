@@ -112,7 +112,7 @@ function timer() {
 }
 
 // start button function, start the countdown and shows first questions
-startBtn.addEventListener("click", function () {
+let startTheGame = startBtn.addEventListener("click", function () {
   //start timer
   timer();
 });
@@ -120,10 +120,12 @@ startBtn.addEventListener("click", function () {
 // questions function
 // let showQuestion =
 
-//   // remove DOM elements after onclick
-//   document.querySelector("#title").remove();
-//   document.querySelector("#description").remove();
-//   document.querySelector("#startbtn").remove();
+//remove DOM elements after onclick
+let removeWelcome = function () {
+  document.querySelector("#title").remove();
+  document.querySelector("#description").remove();
+  document.querySelector("#startbtn").remove();
+};
 
 //   //add wrap div to the body
 //   body.appendChild(questionEl);
