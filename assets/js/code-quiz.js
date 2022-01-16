@@ -113,10 +113,10 @@ codeQuizDescription.setAttribute("id", "description");
 startBtn.setAttribute("id", "startbtn");
 startBtn.className = "btn";
 questionQuestion.className = "questquest";
-questionQuestion.setAttribute("id", "pergunta");
+questionQuestion.setAttribute("id", "thequestion");
 questionEl.className = "question";
 questionList.className = "qlist";
-questionList.setAttribute = ("id", "questionlist");
+questionList.setAttribute("id", "questionlist");
 question1.setAttribute("id", "q1");
 question2.setAttribute("id", "q2");
 question3.setAttribute("id", "q3");
@@ -162,15 +162,15 @@ let startGameBtn = (startBtn.onclick = function () {
 
   //add wrap div to the body
   body.appendChild(questionEl);
-  //add ul to the wrap div
-  questionEl.appendChild(questionList);
   // add question h2 to the wrap div
   questionEl.appendChild(questionQuestion);
+  //add ul to the wrap div
+  questionEl.appendChild(questionList);
   // add li to the ul
-  questionEl.appendChild(question1);
-  questionEl.appendChild(question2);
-  questionEl.appendChild(question3);
-  questionEl.appendChild(question4);
+  questionList.appendChild(question1);
+  questionList.appendChild(question2);
+  questionList.appendChild(question3);
+  questionList.appendChild(question4);
 });
 
 // let removeWelcome = (startBtn.onclick = function () {

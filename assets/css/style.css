@@ -47,4 +47,8 @@ header p {
   padding: 10px;
 }
 
-.
+.question {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
