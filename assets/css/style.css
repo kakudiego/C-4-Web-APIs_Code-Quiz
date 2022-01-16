@@ -51,4 +51,17 @@ header p {
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-bottom: 3px solid gray;
+  padding: 10px;
+  margin: 0 20px;
+}
+
+.questquest {
+  font-size: 40px;
+}
+
+.qlist {
+  padding: 10px;
+  margin: 10px;
+  font-size: 26px;
 }
