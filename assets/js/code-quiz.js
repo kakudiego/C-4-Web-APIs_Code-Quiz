@@ -162,15 +162,15 @@ let startGameBtn = (startBtn.onclick = function () {
 
   //add wrap div to the body
   body.appendChild(questionEl);
-  //add ul to the wrap div
-  questionEl.appendChild(questionList);
   // add question h2 to the wrap div
   questionEl.appendChild(questionQuestion);
+  //add ul to the wrap div
+  questionEl.appendChild(questionList);
   // add li to the ul
-  questionEl.appendChild(question1);
-  questionEl.appendChild(question2);
-  questionEl.appendChild(question3);
-  questionEl.appendChild(question4);
+  questionList.appendChild(question1);
+  questionList.appendChild(question2);
+  questionList.appendChild(question3);
+  questionList.appendChild(question4);
 });
 
 // let removeWelcome = (startBtn.onclick = function () {
