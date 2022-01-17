@@ -36,15 +36,15 @@ wrongMsg.textContent = "Incorrect";
 // questions pool, array of objects with 3 properties each
 const questionBank = [
   { question: "How to insert a comment that has more than one line?", answers: ["/*This comment has correct more than one line*/", "!--This comment has more than one line--!", "//This comment has more than one line//", "--This comment has more than one line--"], correctAnswer: "1" },
-  { question: "Inside which HTML element do we put the JavaScript?", answers: ["<script>", "<js>", "<scripting>", "<javascript>"], correctAnswer: "answer1" },
-  { question: 'How do you write "Hello World" in an alert box?', answers: ['msgBox("Hello World")', 'msg("Hello World")', 'alert("Hello World")', 'alertBox("Hello World")'], correctAnswer: "answer3" },
-  { question: 'How to write an IF statement for executing some code if "i" is NOT equal to 5?', answers: ["if (i <> 5)", "if (i != 5)", "if i =! 5 then", "if i <> 5"], correctAnswer: "answer2" },
-  { question: "How does a FOR loop start?", answers: ["for i = 1 to 5", "for (i = 0; i <= 5; i++)", "for (i <= 5; i++)", "for (i = 0; i <= 5)"], correctAnswer: "answer2" },
-  { question: "Which operator is used to assign a value to a variable?", answers: ["-", "x", "*", "="], correctAnswer: "answer4" },
-  { question: "(function(){return typeof arguments; })();", answers: ["undefined", "arguments", "array", "object"], correctAnswer: "answer4" },
-  { question: "What is the correct way to write a JavaScript array?", answers: ['var colors = 1 = ("red"), 2 = ("green"), 3 = ("blue")', 'var colors = (1:"red", 2:"green", 3:"blue")', 'var colors = "red", "green", "blue"', 'var colors = ["red", "green", "blue"]'], correctAnswer: "answer4" },
-  { question: "How do you round the number 7.25, to the nearest integer?", answers: ["Math.round(7.25)", "round(7.25)", "Math.rnd(7.25)", "rnd(7.25)8"], correctAnswer: "answer1" },
-  { question: "How do you find the number with the highest value of x and y?", answers: ["ceil(x, y)", "Math.max(x, y)", "Math.ceil(x, y)", "top(x, y)"], correctAnswer: "answer2" },
+  { question: "Inside which HTML element do we put the JavaScript?", answers: ["<script>", "<js>", "<scripting>", "<javascript>"], correctAnswer: "1" },
+  { question: 'How do you write "Hello World" in an alert box?', answers: ['msgBox("Hello World")', 'msg("Hello World")', 'alert("Hello World")', 'alertBox("Hello World")'], correctAnswer: "3" },
+  { question: 'How to write an IF statement for executing some code if "i" is NOT equal to 5?', answers: ["if (i <> 5)", "if (i != 5)", "if i =! 5 then", "if i <> 5"], correctAnswer: "2" },
+  { question: "How does a FOR loop start?", answers: ["for i = 1 to 5", "for (i = 0; i <= 5; i++)", "for (i <= 5; i++)", "for (i = 0; i <= 5)"], correctAnswer: "2" },
+  { question: "Which operator is used to assign a value to a variable?", answers: ["-", "x", "*", "="], correctAnswer: "4" },
+  { question: "(function(){return typeof arguments; })();", answers: ["undefined", "arguments", "array", "object"], correctAnswer: "4" },
+  { question: "What is the correct way to write a JavaScript array?", answers: ['var colors = 1 = ("red"), 2 = ("green"), 3 = ("blue")', 'var colors = (1:"red", 2:"green", 3:"blue")', 'var colors = "red", "green", "blue"', 'var colors = ["red", "green", "blue"]'], correctAnswer: "4" },
+  { question: "How do you round the number 7.25, to the nearest integer?", answers: ["Math.round(7.25)", "round(7.25)", "Math.rnd(7.25)", "rnd(7.25)8"], correctAnswer: "1" },
+  { question: "How do you find the number with the highest value of x and y?", answers: ["ceil(x, y)", "Math.max(x, y)", "Math.ceil(x, y)", "top(x, y)"], correctAnswer: "2" },
 ];
 
 // console.log questionBank array
@@ -55,6 +55,7 @@ const questionBank = [
 
 // new elements' classes and id's
 welcome.className = "welcome";
+welcome.setAttribute("id", "welcomeId");
 codeQuizWelcome.setAttribute("id", "title");
 codeQuizDescription.setAttribute("id", "description");
 
@@ -74,6 +75,7 @@ let submitBtn = document.querySelector("#submitbtn");
 questionQuestion.className = "questquest";
 questionQuestion.setAttribute("id", "thequestion");
 questionEl.className = "question";
+questionEl.setAttribute("id", "questionel");
 questionList.className = "qlist";
 questionList.setAttribute("id", "questionlist");
 // question1.setAttribute("id", "q1");
@@ -102,31 +104,32 @@ welcome.appendChild(startBtn);
 let timerEl = document.querySelector("#timer");
 let time = 5;
 
-// timer function
-// function timer() {
-//   let timeInterval = setInterval(function () {
-//     timerEl.textContent = "Timer: " + time;
-//     time--;
+//timer function
+function timer() {
+  let timeInterval = setInterval(function () {
+    timerEl.textContent = "Timer: " + time;
+    time--;
 
-//     if (time < -1) {
-//       alert("Times Up!");
-//       clearInterval(timeInterval);
-//       timerEl.textContent = "Timer: 60";
-//     }
-//   }, 1000);
-// }
+    if (time < -1) {
+      alert("Times Up!");
+      clearInterval(timeInterval);
+      timerEl.textContent = "Timer: 60";
+    }
+  }, 1000);
+}
 
 //remove DOM elements after onclick
 function removeWelcome() {
+  //document.querySelector("#welcomeId").remove();
   document.querySelector("#title").remove();
   document.querySelector("#description").remove();
   document.querySelector("#startbtn").remove();
 }
 
-function removeOldQuesiton() {
-  let clearChoices = document.querySelectorAll(".choices").remove();
-  questionEl.remove(clearChoices);
-  // document.querySelector("").remove();
+function removeOld() {
+  // let clearChoices = document.querySelectorAll(".choices").remove();
+  // questionEl.remove(clearChoices);
+  document.querySelector("#question").remove();
   // document.querySelector("").remove();
 }
 
@@ -160,7 +163,7 @@ function showQuestion() {
 
       // remove HTML of current question
       //THIS IS NOT WORKING YET !!!!!!
-      removeOldQuesiton();
+      //removeOld();
       // run function again to make new question
       //showQuestion();
     });
@@ -170,7 +173,7 @@ function showQuestion() {
   }
 }
 
-// start button function when click start button 
+// start button function when click start button
 let startGame = startBtn.addEventListener("click", function () {
   //start timer
   //timer();
@@ -187,23 +190,10 @@ let startGame = startBtn.addEventListener("click", function () {
 
 //   //add ol to the wrap div
 //   questionEl.appendChild(questionList);
-
-//   // add li to the ol
-//   questionList.appendChild(question1);
-//   questionList.appendChild(question2);
-//   questionList.appendChild(question3);
-//   questionList.appendChild(question4);
-
-//   // massage after selecting answer
-//   body.appendChild(correctMsg);
-// });
-
-// let removeWelcome = (startBtn.onclick = function () {
-// });
-
-// show first set of questions
-// startBtn.onclick = function () {
-// };
+//
+//
+//
+//
 
 // possible way to verify answers
 
