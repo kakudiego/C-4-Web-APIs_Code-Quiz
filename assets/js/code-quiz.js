@@ -69,7 +69,7 @@ startBtn.textContent = "Start Game";
 let submitBtn = document.querySelector("#submitbtn");
 // submitBtn.setAttribute("id", "submitbtn");
 // submitBtn.className = "btn";
-// submitBtn.textContent = "Submit";
+// submitBtn.textContent = "submit";
 
 // question div and ol, class and id
 questionQuestion.className = "questquest";
@@ -78,21 +78,10 @@ questionEl.className = "question";
 questionEl.setAttribute("id", "questionel");
 questionList.className = "qlist";
 questionList.setAttribute("id", "questionlist");
-// question1.setAttribute("id", "q1");
-// question2.setAttribute("id", "q2");
-// question3.setAttribute("id", "q3");
-// question4.setAttribute("id", "q4");
 
 // add text to welcome elements
 codeQuizWelcome.textContent = "Coding Quiz Challenge";
 codeQuizDescription.textContent = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score time by 10 seconds!";
-
-// first question just for testing
-// questionQuestion.textContent = "question 1";
-// question1.textContent = "a";
-// question2.textContent = "b";
-// question3.textContent = "c";
-// question4.textContent = "d";
 
 // display first screen elements
 body.appendChild(welcome);
@@ -138,6 +127,12 @@ body.appendChild(questionEl);
 
 //accumulator variable to count loops through questions
 let questionsNumber = 0;
+// var testArray = questionBank.keys(questionsNumber);
+// var testArray = Object.keys(questionBank);
+// for (let i = 0; i < testArray.length; i++) {
+//   questionArray = testArray[i];
+//   questionsNumber = questionBank[questionArray];
+// }
 
 // questions function
 function showQuestion() {
@@ -179,11 +174,13 @@ let startGame = startBtn.addEventListener("click", function () {
   //timer();
   removeWelcome();
 
-  // we need to loop through questions
+  //we need to loop through questions
   for (let i; questionBank.length; i++) {
     showQuestion();
   }
 });
+
+
 
 //   // add question h2 to the wrap div
 //   questionEl.appendChild(questionQuestion);
