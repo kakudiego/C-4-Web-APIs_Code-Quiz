@@ -169,7 +169,7 @@ function showQuestion() {
 }
 
 // start button function when click start button
-let startGame = startBtn.addEventListener("click", function () {
+let startTheGame = startBtn.addEventListener("click", function () {
   //start timer
   //timer();
   removeWelcome();
