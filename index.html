@@ -7,13 +7,13 @@
     <title>JavaScript Code Quiz</title>
     <link rel="stylesheet" href="./assets/css/style.css" />
     <!-- defer will make it load after -->
-    <script defer src="./assets/js/code-quiz-b.js"></script>
   </head>
   <header class="score-time">
     <button id="leaderboard" class="btn">Leaderboard</button>
     <p id="timer">Timer: 5</p>
   </header>
   <body>
+    <div class="welcome-massage"></div>
     <div class="container">
       <div id="question-container" class="hide">
         <div id="question">
@@ -21,8 +21,11 @@
         </div>
         <div id="answer-buttons" class="btn-grid">
           <button class="btn">Answer 1</button>
+        </br>
           <button class="btn">Answer 2</button>
+        </br>
           <button class="btn">Answer 3</button>
+        </br>
           <button class="btn">Answer 4</button>
         </div>
       </div>
@@ -31,5 +34,6 @@
         <button id="next-btn" class="next-btn btn hide">Next</button>
       </div>
     </div>
+    <script src="./assets/js/code-quiz-b.js"></script>
   </body>
 </html>
