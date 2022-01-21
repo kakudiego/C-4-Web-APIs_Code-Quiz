@@ -26,11 +26,11 @@ let randomQuestion, currentQuestionIndex;
 //create first screen text
 const body = document.body;
 const codeQuizWelcome = document.createElement("h1");
-codeQuizWelcome.setAttribute("id", "codeh1");
+codeQuizWelcome.id = "codeh1";
 const codeQuizDescription = document.createElement("h2");
-codeQuizDescription.setAttribute("id", "codeh2");
-codeQuizWelcome.textContent = "Coding Quiz Challenge";
-codeQuizDescription.textContent = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score time by 10 seconds!";
+codeQuizDescription.id = "codeh2";
+codeQuizWelcome.innerText = "Coding Quiz Challenge";
+codeQuizDescription.innerText = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score time by 10 seconds!";
 
 // welcome message
 startButtonContainer.appendChild(codeQuizDescription);
@@ -62,10 +62,10 @@ function startGame() {
   // remove class 'hide' from questionContainerElement
   questionContainerElement.classList.remove("hide");
   setNextQuestion();
-  //timer();
+  timer();
 }
 
-// possible function for the next question
+// function for the next question
 function setNextQuestion() {
   showQuestion(randomQuestion[currentQuestionIndex]);
 }
@@ -77,17 +77,40 @@ function showQuestion(question) {
 
   // add the answers with function to create buttons for each
   question.answers.forEach((answer) => {
-    const button = document.createElement("button");
-    button.innerText = answer.text;
-    button.classList.add("btn");
+    const answerButton = document.createElement("button");
+    answerButton.innerText = answer.text;
+    answerButton.classList.add("btn");
 
-    // only for the correct answer
+    // correct answer
     if (answer.correct) {
-      button.dataset.correct = answer.correct;
+      answerButton.dataset.correct = answer.correct;
+      correctAnswer();
     }
-    button.addEventListener("click", selectAnswer);
-    answerButtonElement.appendChild(button);
+    // wrong answer
+    if (answer.correct) {
+      answerButton.dataset.correct != answer.correct;
+      wrongAnswers();
+    }
+    answerButton.addEventListener("click", selectAnswer);
+    answerButtonElement.appendChild(answerButton);
   });
+}
+
+// score system
+let score = 0;
+let scores = [];
+let i = 0;
+
+function correctAnswer() {
+  // add to score
+  score++;
+  console.log(score);
+}
+
+function wrongAnswers() {
+  // subtract 5
+  time = time - 5;
+  console.log(time);
 }
 
 // reset everything each new question
@@ -111,11 +134,13 @@ function selectAnswer(e) {
   if (randomQuestion.length > currentQuestionIndex + 1) {
     nextButton.classList.remove("hide");
   } else {
+    // change start button to restart
     startButton.innerText = "Restart";
     startButton.classList.remove("hide");
   }
 }
 
+// add classes to change color of correct and wrong answers
 function setStatusClass(element, correct) {
   clearStatusClass(element);
   if (correct) {
@@ -125,26 +150,81 @@ function setStatusClass(element, correct) {
   }
 }
 
+// remove classes for new question
 function clearStatusClass(element) {
   element.classList.remove("correct");
   element.classList.remove("wrong");
 }
 
 //timer function
-let timerEl = document.querySelector("#timer");
 let time = 5;
+let timerEl = document.querySelector("#timer");
 function timer() {
   let timeInterval = setInterval(function () {
-    timerEl.textContent = "Timer: " + time;
+    timerEl.innerHTML = "Timer: " + time + " seconds";
     time--;
 
-    if (time < -1) {
-      alert("Times Up!");
+    if (time <= -1 || time === 0) {
+      timerEl.innerHTML = "Game Over!";
       clearInterval(timeInterval);
-      timerEl.textContent = "Timer: 60";
+      formEl.classList.remove("hide");
+      endGame();
     }
   }, 1000);
 }
+
+// endGame function
+function endGame() {
+  // replace div question container with text
+  questionElement.innerHTML = "<h1>Done!</h1>";
+
+  // final score
+  let finalScore = document.querySelector("#answer-buttons");
+  finalScore.innerHTML = "<h2>Final Score = " + score + "!</h2>";
+
+  // form element
+  let formEl = document.querySelector("#form");
+  formEl.addEventListener("submit", leaderboard);
+}
+
+// leaderboard function
+let leaderboard = function (event) {
+  // prevent reload page
+  event.preventDefault();
+  questionElement.innerHTML = "<h1>Leaderboard</h1>";
+  formEl.classList.add("hide");
+
+  // add initial input and make it a string
+  let initialsInput = document.querySelector("input[name='initial']").value;
+  let scoreObj = {
+    name: initialsInput,
+    scoreOf: score.toString(),
+  };
+
+  if (!initialsInput) {
+    alert("You must provide your initials!");
+    return false;
+  }
+
+  let highScores = localStorage.getItem("highScores");
+  let highScore = JSON.parse(highScores);
+
+  if (highScore == null) {
+    highScore = [];
+  }
+
+  highScore.push(scoreObj);
+
+  for (let i = 0; i < highScore.length; i++) {
+    let highScoreLi = document.createElement("li");
+    highScoreLi.id = "highScoreLiId";
+    highScoreLi.textContent = highScore[i].name + " - " + highScore[i].scoreOf;
+    document.getElementById("results").appendChild(highScoreLi);
+  }
+
+  localStorage.setItem("highScores", JSON.stringify(highScore));
+  document.getElementById("initialsInput").remove();
+};
 
 // questionsBank pool, array of objects with 3 properties each
 const questionsBank = [
@@ -191,15 +271,6 @@ const questionsBank = [
       { text: "!--This comment has more than one line--!", correct: false },
       { text: "//This comment has more than one line//", correct: false },
       { text: "--This comment has more than one line--", correct: false },
-    ],
-  },
-  {
-    question: "How do you round the number 7.25, to the nearest integer?",
-    answers: [
-      { text: "Math.round(7.25)", correct: true },
-      { text: "round(7.25)", correct: false },
-      { text: "Math.rnd(7.25)", correct: false },
-      { text: "rnd(7.25)8", correct: false },
     ],
   },
   {

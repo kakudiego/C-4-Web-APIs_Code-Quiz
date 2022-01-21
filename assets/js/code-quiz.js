@@ -180,8 +180,6 @@ let startTheGame = startBtn.addEventListener("click", function () {
   }
 });
 
-
-
 //   // add question h2 to the wrap div
 //   questionEl.appendChild(questionQuestion);
 
