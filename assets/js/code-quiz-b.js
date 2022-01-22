@@ -4,19 +4,12 @@ const nextButton = document.querySelector("#next-btn");
 const submitButton = document.querySelector("#submit");
 const leaderboardBtn = document.querySelector("#leaderboard");
 
-// select div container by class
+// select all div container
+const leaderboardPage = document.querySelector(".leaderboard");
 const questionContainer = document.querySelector(".container");
-
-// select div question-container by ID
 const questionContainerElement = document.querySelector("#question-container");
-
-// select div question by ID, h1 question element
 const questionElement = document.querySelector("#question");
-
-// select the div answers by ID
 const answerButtonElement = document.querySelector("#answer-buttons");
-
-// select div welcome message by class
 const startButtonContainer = document.querySelector(".controls");
 
 // generate random question order undefined
@@ -220,9 +213,6 @@ function timer() {
   }, 1000);
 }
 
-// click leaderboard button shows list with scores
-// leaderboardBtn.addEventListener("click");
-
 // endGame function
 function endGame() {
   // replace div question container with text
@@ -258,7 +248,7 @@ let leaderboard = function (event) {
 
   // clear high scores button
   let clearEl = document.createElement("button");
-  clearEl.textContent = "Clear high scores";
+  clearEl.innerText = "Clear scores";
   clearEl.id = "clear";
   clearEl.classList.add("btn");
   document.getElementById("results").appendChild(clearEl);
@@ -267,7 +257,7 @@ let leaderboard = function (event) {
   let initialsInput = document.querySelector("input[name='initial']").value;
   let scoreObj = {
     name: initialsInput,
-    scoreOf: score.toString(),
+    userScore: score.toString(),
   };
 
   if (!initialsInput) {
@@ -276,21 +266,35 @@ let leaderboard = function (event) {
   }
 
   let highScores = localStorage.getItem("highScores");
-  let highScore = JSON.parse(highScores);
+  let storedData = JSON.parse(highScores);
 
-  if (highScore == null) {
-    highScore = [];
+  if (storedData == null) {
+    storedData = [];
   }
 
-  highScore.push(scoreObj);
+  storedData.push(scoreObj);
 
-  for (let i = 0; i < highScore.length; i++) {
-    let highScoreLi = document.createElement("li");
-    highScoreLi.id = "highScoreLiId";
-    highScoreLi.textContent = highScore[i].name + " - " + highScore[i].scoreOf;
-    document.getElementById("results").appendChild(highScoreLi);
+  for (let i = 0; i < storedData.length; i++) {
+    let scoreList = document.createElement("li");
+    scoreList.id = "highScoreLiId";
+    scoreList.textContent = storedData[i].name + " - " + storedData[i].userScore;
+    document.querySelector("#results").appendChild(scoreList);
   }
 
-  localStorage.setItem("highScores", JSON.stringify(highScore));
-  document.getElementById("initialsInput").remove();
+  localStorage.setItem("highScores", JSON.stringify(storedData));
+  document.querySelector("#initialsInput").remove();
 };
+
+// let playerScore = document.querySelectorAll(".player-score");
+
+// // leaderboard button shows list with scores
+// leaderboardBtn.addEventListener("click", function () {
+//   // take storedData array and insert ir into leaderboard
+//   let storedData = JSON.parse(localStorage.getItem("highScores"));
+
+//   for (let i = 0; i < storedData.length; i++) {
+//     playerScore[i].innerText = `${storedData[i].name}: ${storedData[i].userScore}`;
+//   }
+
+//   location.href = "leaderboard.html";
+// });
