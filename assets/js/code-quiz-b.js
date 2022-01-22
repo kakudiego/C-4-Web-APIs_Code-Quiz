@@ -1,72 +1,61 @@
 // select the start button
-const startButton = document.querySelector("#start-btn");
-const nextButton = document.querySelector("#next-btn");
+let startButton = document.querySelector("#start-btn");
+let nextButton = document.querySelector("#next-btn");
 
-// select the leaderboard button
-const leaderboardBtn = document.querySelector("#leaderboard");
+startButton.addEventListener("click", function () {
+  location.href = "questions.html";
+  startGame();
+});
 
 // select div container by class
-const questionContainer = document.querySelector(".container");
+let questionContainer = document.querySelector(".container");
 
 // select div question-container by ID
-const questionContainerElement = document.querySelector("#question-container");
+let questionContainerElement = document.querySelector("#question-container");
 
 // select div question by ID, h1 question element
-const questionElement = document.querySelector("#question");
+let questionElement = document.querySelector("#question");
 
 // select the div answers by ID
-const answerButtonElement = document.querySelector("#answer-buttons");
+let answerButtonElement = document.querySelector("#answer-buttons");
 
 // select div welcome message by class
-const startButtonContainer = document.querySelector(".controls");
+let startButtonContainer = document.querySelector(".controls");
 
 // generate random question order undefined
 let randomQuestion, currentQuestionIndex;
 
 //create first screen text
-const body = document.body;
-const codeQuizWelcome = document.createElement("h1");
-codeQuizWelcome.id = "codeh1";
-const codeQuizDescription = document.createElement("h2");
-codeQuizDescription.id = "codeh2";
-codeQuizWelcome.innerText = "Coding Quiz Challenge";
-codeQuizDescription.innerText = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score time by 10 seconds!";
+// let body = document.body;
+// let codeQuizWelcome = document.createElement("h1");
+// codeQuizWelcome.id = "codeh1";
+// let codeQuizDescription = document.createElement("h2");
+// codeQuizDescription.id = "codeh2";
+// codeQuizWelcome.innerText = "Coding Quiz Challenge";
+// codeQuizDescription.innerText = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score time by 5 seconds!";
 
-// welcome message
-startButtonContainer.appendChild(codeQuizDescription);
-startButtonContainer.appendChild(codeQuizWelcome);
-
-startButton.addEventListener("click", startGame);
+// // welcome message
+// startButtonContainer.appendChild(codeQuizDescription);
+// startButtonContainer.appendChild(codeQuizWelcome);
 
 // nextButton will add new question
-nextButton.addEventListener("click", () => {
-  currentQuestionIndex++;
-  setNextQuestion();
-});
+// nextButton.addEventListener("click", () => {
+//   currentQuestionIndex++;
+//   setNextQuestion();
+// });
 
 // possible function for start the game
 function startGame() {
+  timer();
   // add  class 'hide' to startButton
-  startButton.classList.add("hide");
-
-  // add class 'hide' to h1 and h2 welcome
-  codeQuizWelcome.classList.add("hide");
-  codeQuizDescription.classList.add("hide");
+  // startButton.classList.add("hide");
 
   // sort 1 question in the questions using arrow function, Math.random = number (1-0) - .5 = 50% + or - number
-  randomQuestion = questionsBank.sort(() => Math.random() - 0.5);
+  let randomQuestion = questionsBank.sort(() => Math.random() - 0.5);
 
   // set the current question to 0 (first question)
-  currentQuestionIndex = 0;
-
-  // remove class 'hide' from questionContainerElement
-  questionContainerElement.classList.remove("hide");
-  setNextQuestion();
-  timer();
-}
-
-// function for the next question
-function setNextQuestion() {
+  let currentQuestionIndex = 0;
+  console.log("WHAT IS THIS?", randomQuestion[currentQuestionIndex]);
   showQuestion(randomQuestion[currentQuestionIndex]);
 }
 
@@ -77,7 +66,7 @@ function showQuestion(question) {
 
   // add the answers with function to create buttons for each
   question.answers.forEach((answer) => {
-    const answerButton = document.createElement("button");
+    let answerButton = document.createElement("button");
     answerButton.innerText = answer.text;
     answerButton.classList.add("btn");
 
@@ -123,8 +112,8 @@ function resetState() {
 
 // do something when we select the answer
 function selectAnswer(e) {
-  const selectedButton = e.target;
-  const correct = selectedButton.dataset.correct;
+  let selectedButton = e.target;
+  let correct = selectedButton.dataset.correct;
   setStatusClass(document.body, correct);
 
   Array.from(answerButtonElement.children).forEach((button) => {
@@ -157,7 +146,7 @@ function clearStatusClass(element) {
 }
 
 //timer function
-let time = 5;
+let time = 10;
 let timerEl = document.querySelector("#timer");
 function timer() {
   let timeInterval = setInterval(function () {
@@ -168,6 +157,7 @@ function timer() {
       timerEl.innerHTML = "Game Over!";
       clearInterval(timeInterval);
       formEl.classList.remove("hide");
+      nextButton.classList.add("hide");
       endGame();
     }
   }, 1000);
@@ -183,9 +173,30 @@ function endGame() {
   finalScore.innerHTML = "<h2>Final Score = " + score + "!</h2>";
 
   // form element
-  let formEl = document.querySelector("#form");
+  let formEl = document.querySelector("#formEl");
+
   formEl.addEventListener("submit", leaderboard);
 }
+
+// select the leaderboard button
+let leaderboardButton = document.querySelector("#leaderboard");
+let leaderboardPage = document.querySelector("#leaderboard-page");
+let goToStartButton = document.querySelector("#goToStart-btn");
+
+// leaderboard button function
+
+leaderboardButton.addEventListener("click", function () {
+  leaderboardPage.innerHTML = "<h1>Leaderboard</h1>";
+  goToStartButton.classList.remove("hide");
+  leaderboardPage.classList.remove("hide");
+  startButton.classList.add("hide");
+  timerEl.classList.add("hide");
+  questionContainerElement.classList.add("hide");
+  leaderboardButton.classList.remove("hide");
+  codeQuizWelcome.classList.add("hide");
+  codeQuizDescription.classList.add("hide");
+  formEl.classList.add("hide");
+});
 
 // leaderboard function
 let leaderboard = function (event) {
@@ -194,40 +205,48 @@ let leaderboard = function (event) {
   questionElement.innerHTML = "<h1>Leaderboard</h1>";
   formEl.classList.add("hide");
 
-  // add initial input and make it a string
-  let initialsInput = document.querySelector("input[name='initial']").value;
-  let scoreObj = {
-    name: initialsInput,
-    scoreOf: score.toString(),
-  };
-
-  if (!initialsInput) {
-    alert("You must provide your initials!");
-    return false;
-  }
-
-  let highScores = localStorage.getItem("highScores");
-  let highScore = JSON.parse(highScores);
-
-  if (highScore == null) {
-    highScore = [];
-  }
-
-  highScore.push(scoreObj);
-
-  for (let i = 0; i < highScore.length; i++) {
-    let highScoreLi = document.createElement("li");
-    highScoreLi.id = "highScoreLiId";
-    highScoreLi.textContent = highScore[i].name + " - " + highScore[i].scoreOf;
-    document.getElementById("results").appendChild(highScoreLi);
-  }
-
-  localStorage.setItem("highScores", JSON.stringify(highScore));
-  document.getElementById("initialsInput").remove();
+  // get the first screen ready
+  startButton.classList.remove("hide");
+  startButton.innerText = "Restart";
+  // codeQuizWelcome.classList.remove("hide");
+  // codeQuizDescription.classList.remove("hide");
+  // questionContainerElement.classList.add("hide");
+  nextButton.classList.add("hide");
 };
+//   // add initial input and make it a string
+//   let initialsInput = document.querySelector("input[name='initial']").value;
+//   let scoreObj = {
+//     name: initialsInput,
+//     scoreOf: score.toString(),
+//   };
+
+//   if (!initialsInput) {
+//     alert("You must provide your initials!");
+//     return false;
+//   }
+
+//   let highScores = localStorage.getItem("highScores");
+//   let highScore = JSON.parse(highScores);
+
+//   if (highScore == null) {
+//     highScore = [];
+//   }
+
+//   highScore.push(scoreObj);
+
+//   for (let i = 0; i < highScore.length; i++) {
+//     let highScoreLi = document.createElement("li");
+//     highScoreLi.id = "highScoreLiId";
+//     highScoreLi.textContent = highScore[i].name + " - " + highScore[i].scoreOf;
+//     document.getElementById("results").appendChild(highScoreLi);
+//   }
+
+//   localStorage.setItem("highScores", JSON.stringify(highScore));
+//   document.getElementById("initialsInput").remove();
+// };
 
 // questionsBank pool, array of objects with 3 properties each
-const questionsBank = [
+let questionsBank = [
   {
     question: "Inside which HTML element do we put the JavaScript?",
     answers: [

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript Code Quiz</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <!-- defer will make it load after -->
+  </head>
+  <header class="score-time">
+    <button id="leaderboard" class="btn">Leaderboard</button>
+    <h2 id="timer">Timer: 60</h2>
+    <button id="goToStart-btn" class="btn hide">Restart</button>
+  </header>
+  <body>
+    <div id="leaderboard-page" class="hide" ></div>
+    <div class="container">
+      <div id="question-container" class="">
+        <div id="question">
+          <h1>Question</h1>
+        </div>
+        <div id="answer-buttons" class="btn-grid">
+          <button  class="btn answerbtns">Answer 1</button>
+        </br>
+          <button class="btn answerbtns">Answer 2</button>
+        </br>
+          <button class="btn answerbtns">Answer 3</button>
+        </br>
+          <button class="btn answerbtns">Answer 4</button>
+        </div>
+      </div>
+    </div>
+    <script src="./assets/js/questions.js"></script>
+  </body>
+</html>

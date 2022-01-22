@@ -6,36 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>JavaScript Code Quiz</title>
     <link rel="stylesheet" href="./assets/css/style.css" />
-    <!-- defer will make it load after -->
   </head>
   <header class="score-time">
     <button id="leaderboard" class="btn">Leaderboard</button>
-    <h2 id="timer">Timer: 75</h2>
+    <h2 id="timer">Timer: 60</h2>
+    <button id="goToStart-btn" class="btn hide">Restart</button>
   </header>
   <body>
-    <div class="welcome-massage"></div>
-    <div class="container">
-      <div id="question-container" class="hide">
-        <div id="question">
-          <h1>Question</h1>
-        </div>
-        <div id="answer-buttons" class="btn-grid">
-          <button class="btn">Answer 1</button>
-        </br>
-          <button class="btn">Answer 2</button>
-        </br>
-          <button class="btn">Answer 3</button>
-        </br>
-          <button class="btn">Answer 4</button>
-        </div>
-      </div>
+      <h1>Code Quiz Challenge</h1>
+      <h2>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score time by 5 seconds!</h2>
       <div class="controls">
         <button id="start-btn" class="start-btn btn">Start</button>
-        <form id="formEl" class="hide">
-          <input type="text" name="initials" placeholder="Initials" value="" id="initialsInput">
-          <button type="submit" id="submit" class="btn">Submit</button>
-        </form>
-        <button id="next-btn" class="next-btn btn hide">Next</button>
       </div>
     </div>
     <script src="./assets/js/code-quiz-b.js"></script>
