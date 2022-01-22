@@ -7,11 +7,14 @@
     <title>JavaScript Code Quiz</title>
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
+  
   <header class="score-time">
     <button id="leaderboard" class="btn hide">Leaderboard</button>
     <h2 id="timer">Timer: 60</h2>
   </header>
+
   <body>
+
     <div class="leaderboard"></div>
     <div class="container">
       <div id="question-container" class="hide">
@@ -28,18 +31,21 @@
           <button class="btn">Answer 4</button>
         </div>
       </div>
-      <div class="controls">
-        <button id="start-btn" class="start-btn btn">Start</button>
-        <form id="formEl" class="hide">
-          <input type="text" name="initial" placeholder="Initials" value="" id="initialsInput">
-          <button type="submit" id="submit" class="btn">Submit</button>
-        </form>
-        <button id="next-btn" class="next-btn btn hide">Next</button>
-      </div>
       <section class="results" id="results">
         <ul></ul>
       </section>
     </div>
+
+    <div class="controls">
+      <button id="start-btn" class="start-btn btn">Start</button>
+      <form id="formEl" class="hide">
+        <input type="text" name="initial" placeholder="Initials" value="" id="initialsInput">
+        <button type="submit" id="submit" class="btn">Submit</button>
+      </form>
+      <button id="next-btn" class="next-btn btn hide">Next</button>
+    </div>
+    
     <script src="./assets/js/code-quiz-b.js"></script>
+
   </body>
 </html>

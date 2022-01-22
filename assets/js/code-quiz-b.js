@@ -10,7 +10,7 @@ const questionContainer = document.querySelector(".container");
 const questionContainerElement = document.querySelector("#question-container");
 const questionElement = document.querySelector("#question");
 const answerButtonElement = document.querySelector("#answer-buttons");
-const startButtonContainer = document.querySelector(".controls");
+const controlsElements = document.querySelector(".controls");
 
 // generate random question order undefined
 let randomQuestion, currentQuestionIndex;
@@ -25,8 +25,8 @@ codeQuizWelcome.innerText = "Coding Quiz Challenge";
 codeQuizDescription.innerText = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score time by 10 seconds!";
 
 // welcome message
-startButtonContainer.appendChild(codeQuizDescription);
-startButtonContainer.appendChild(codeQuizWelcome);
+controlsElements.appendChild(codeQuizDescription);
+controlsElements.appendChild(codeQuizWelcome);
 
 // questionsBank pool, array of objects with 3 properties each
 const questionsBank = [
@@ -120,6 +120,12 @@ function setNextQuestion() {
   showQuestion(randomQuestion[currentQuestionIndex]);
 }
 
+// score system
+let score = 0;
+let scores = [];
+let i = 0;
+let penalty = 10;
+
 // showQuestion function take 'question' object from array
 function showQuestion(question) {
   resetState();
@@ -134,24 +140,15 @@ function showQuestion(question) {
     // correct answer
     if (answer.correct) {
       answerButton.dataset.correct = answer.correct;
-      score++;
-      console.log(score);
     }
     // wrong answer
-    if (answer.correct) {
+    else {
       answerButton.dataset.correct != answer.correct;
-      time = time - 10;
-      console.log(time);
     }
-    answerButton.addEventListener("click", selectAnswer);
     answerButtonElement.appendChild(answerButton);
+    answerButton.addEventListener("click", selectAnswer);
   });
 }
-
-// score system
-let score = 0;
-let scores = [];
-let i = 0;
 
 // reset everything each new question
 function resetState() {
@@ -167,6 +164,14 @@ function selectAnswer(e) {
   const correct = selectedButton.dataset.correct;
   setStatusClass(document.body, correct);
 
+  if (correct) {
+    score++;
+    console.log(score);
+  } else {
+    time = time - penalty;
+    console.log(time);
+  }
+
   Array.from(answerButtonElement.children).forEach((button) => {
     setStatusClass(button, button.dataset.correct);
   });
@@ -178,6 +183,11 @@ function selectAnswer(e) {
     startButton.innerText = "Restart";
     startButton.classList.remove("hide");
   }
+
+  setTimeout(function () {
+    currentQuestionIndex++;
+    setNextQuestion();
+  }, 500);
 }
 
 // add classes to change color of correct and wrong answers
@@ -204,7 +214,7 @@ function timer() {
     timerEl.innerHTML = "Timer: " + time + " seconds";
     time--;
 
-    if (time <= -1 || time === 0) {
+    if (time <= 0 || time === 0) {
       timerEl.innerHTML = "Game Over!";
       clearInterval(timeInterval);
       formEl.classList.remove("hide");
