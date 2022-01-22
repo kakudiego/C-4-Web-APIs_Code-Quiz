@@ -1,5 +1,3 @@
-console.log("I am now in test.js");
-
 // select div container by class
 let questionContainer = document.querySelector(".container");
 
@@ -96,6 +94,18 @@ function startGame() {
   showQuestion(randomQuestion[currentQuestionIndex]);
 }
 
+let nextButton = document.querySelector("#next-btn");
+nextButton.addEventListener("click", () => {
+  currentQuestionIndex++;
+  setNextQuestion();
+});
+
+let goToStartButton = document.querySelector("#gotostart-btn");
+goToStartButton.addEventListener("click", function () {
+  location.href = "questions.html";
+  startGame();
+});
+
 // showQuestion function take 'question' object from array
 function showQuestion(question) {
   resetState();
@@ -110,14 +120,16 @@ function showQuestion(question) {
     answerButton.innerText = answer.text;
     answerButton.classList.add("btn");
 
-    if (answer.correct == true) {
-      // add 'true' class to button
-      answerButton.classList.add("correct");
-    } else {
-      // add 'wrong' class to button
-      answerButton.classList.add("wrong");
+    // correct answer
+    if (answer.correct) {
+      answerButton.dataset.correct = answer.correct;
+      correctAnswer();
     }
-
+    // wrong answer
+    if (answer.correct) {
+      answerButton.dataset.correct != answer.correct;
+      wrongAnswers();
+    }
     answerButton.addEventListener("click", selectAnswer);
     answerButtonElement.appendChild(answerButton);
   });
@@ -173,20 +185,20 @@ function selectAnswer(e) {
 }
 
 // add classes to change color of correct and wrong answers
-// function setStatusClass(element, correct) {
-//   clearStatusClass(element);
-//   if (correct) {
-//     element.classList.add("correct");
-//   } else {
-//     element.classList.add("wrong");
-//   }
-// }
+function setStatusClass(element, correct) {
+  clearStatusClass(element);
+  if (correct) {
+    element.classList.add("green");
+  } else {
+    element.classList.add("red");
+  }
+}
 
-// // remove classes for new question
-// function clearStatusClass(element) {
-//   element.classList.remove("correct");
-//   element.classList.remove("wrong");
-// }
+// remove classes for new question
+function clearStatusClass(element) {
+  element.classList.remove("green");
+  element.classList.remove("red");
+}
 
 //timer function
 function timer() {
@@ -197,7 +209,24 @@ function timer() {
     if (time <= -1 || time === 0) {
       timerEl.innerHTML = "Game Over!";
       clearInterval(timeInterval);
-      // endGame();
+      formEl.classList.remove("hide");
+      endGame();
     }
   }, 1000);
+}
+
+function endGame() {
+  // replace div question container with text
+  questionElement.innerHTML = "<h1>Done!</h1>";
+
+  // final score
+  let finalScore = document.querySelector("#answer-buttons");
+  finalScore.innerHTML = "<h2>Final Score = " + score + "!</h2>";
+
+  nextButton.classList.add("hide");
+
+  // form element
+  let formEl = document.querySelector("#formEl");
+
+  formEl.addEventListener("submit", leaderboard);
 }

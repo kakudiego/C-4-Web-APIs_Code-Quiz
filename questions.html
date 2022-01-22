@@ -11,7 +11,7 @@
   <header class="score-time">
     <button id="leaderboard" class="btn">Leaderboard</button>
     <h2 id="timer">Timer: 60</h2>
-    <button id="goToStart-btn" class="btn hide">Restart</button>
+    <button id="gotostart-btn" class="btn">Restart</button>
   </header>
   <body>
     <div id="leaderboard-page" class="hide" ></div>
@@ -29,6 +29,12 @@
         </br>
           <button class="btn answerbtns">Answer 4</button>
         </div>
+        <form id="formEl" class="hide">
+          <input type="text" name="initials" placeholder="Initials" value="" id="initialsInput">
+          <button type="submit" id="submit" class="btn" onsubmit="return false">Submit</button>
+        </form>
+
+        <button id="next-btn" class="next-btn btn">Next</button>
       </div>
     </div>
     <script src="./assets/js/questions.js"></script>

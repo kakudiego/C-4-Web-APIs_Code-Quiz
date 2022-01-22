@@ -60,13 +60,13 @@ header {
   border-color: #000000;
 }
 
-/* .btn.correct {
+.btn.green {
   background-color: #008000;
 }
 
-.btn.wrong {
+.btn.red {
   background-color: #ff0000;
-} */
+}
 
 .start-btn,
 .next-btn {

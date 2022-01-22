@@ -26,23 +26,23 @@ let startButtonContainer = document.querySelector(".controls");
 let randomQuestion, currentQuestionIndex;
 
 //create first screen text
-// let body = document.body;
-// let codeQuizWelcome = document.createElement("h1");
-// codeQuizWelcome.id = "codeh1";
-// let codeQuizDescription = document.createElement("h2");
-// codeQuizDescription.id = "codeh2";
-// codeQuizWelcome.innerText = "Coding Quiz Challenge";
-// codeQuizDescription.innerText = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score time by 5 seconds!";
+let body = document.body;
+let codeQuizWelcome = document.createElement("h1");
+codeQuizWelcome.id = "codeh1";
+let codeQuizDescription = document.createElement("h2");
+codeQuizDescription.id = "codeh2";
+codeQuizWelcome.innerText = "Coding Quiz Challenge";
+codeQuizDescription.innerText = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score time by 5 seconds!";
 
-// // welcome message
-// startButtonContainer.appendChild(codeQuizDescription);
-// startButtonContainer.appendChild(codeQuizWelcome);
+// welcome message
+startButtonContainer.appendChild(codeQuizDescription);
+startButtonContainer.appendChild(codeQuizWelcome);
 
 // nextButton will add new question
-// nextButton.addEventListener("click", () => {
-//   currentQuestionIndex++;
-//   setNextQuestion();
-// });
+nextButton.addEventListener("click", () => {
+  currentQuestionIndex++;
+  setNextQuestion();
+});
 
 // possible function for start the game
 function startGame() {
