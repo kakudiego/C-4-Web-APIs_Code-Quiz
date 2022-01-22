@@ -10,7 +10,7 @@
   </head>
   <header class="score-time">
     <button id="leaderboard" class="btn">Leaderboard</button>
-    <h2 id="timer">Timer: 75</h2>
+    <h2 id="timer">Timer: 60</h2>
   </header>
   <body>
     <div class="welcome-massage"></div>
@@ -32,11 +32,14 @@
       <div class="controls">
         <button id="start-btn" class="start-btn btn">Start</button>
         <form id="formEl" class="hide">
-          <input type="text" name="initials" placeholder="Initials" value="" id="initialsInput">
+          <input type="text" name="initial" placeholder="Initials" value="" id="initialsInput">
           <button type="submit" id="submit" class="btn">Submit</button>
         </form>
         <button id="next-btn" class="next-btn btn hide">Next</button>
       </div>
+      <section class="results" id="results">
+        <ul></ul>
+      </section>
     </div>
     <script src="./assets/js/code-quiz-b.js"></script>
   </body>

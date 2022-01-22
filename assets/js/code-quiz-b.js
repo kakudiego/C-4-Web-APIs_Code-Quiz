@@ -1,8 +1,7 @@
-// select the start button
+// select various buttons
 const startButton = document.querySelector("#start-btn");
 const nextButton = document.querySelector("#next-btn");
-
-// select the leaderboard button
+const submitButton = document.querySelector("#submit");
 const leaderboardBtn = document.querySelector("#leaderboard");
 
 // select div container by class
@@ -35,196 +34,6 @@ codeQuizDescription.innerText = "Try to answer the following code-related questi
 // welcome message
 startButtonContainer.appendChild(codeQuizDescription);
 startButtonContainer.appendChild(codeQuizWelcome);
-
-startButton.addEventListener("click", startGame);
-
-// nextButton will add new question
-nextButton.addEventListener("click", () => {
-  currentQuestionIndex++;
-  setNextQuestion();
-});
-
-// possible function for start the game
-function startGame() {
-  // add  class 'hide' to startButton
-  startButton.classList.add("hide");
-
-  // add class 'hide' to h1 and h2 welcome
-  codeQuizWelcome.classList.add("hide");
-  codeQuizDescription.classList.add("hide");
-
-  // sort 1 question in the questions using arrow function, Math.random = number (1-0) - .5 = 50% + or - number
-  randomQuestion = questionsBank.sort(() => Math.random() - 0.5);
-
-  // set the current question to 0 (first question)
-  currentQuestionIndex = 0;
-
-  // remove class 'hide' from questionContainerElement
-  questionContainerElement.classList.remove("hide");
-  setNextQuestion();
-  timer();
-}
-
-// function for the next question
-function setNextQuestion() {
-  showQuestion(randomQuestion[currentQuestionIndex]);
-}
-
-// showQuestion function take 'question' object from array
-function showQuestion(question) {
-  resetState();
-  questionElement.innerText = question.question;
-
-  // add the answers with function to create buttons for each
-  question.answers.forEach((answer) => {
-    const answerButton = document.createElement("button");
-    answerButton.innerText = answer.text;
-    answerButton.classList.add("btn");
-
-    // correct answer
-    if (answer.correct) {
-      answerButton.dataset.correct = answer.correct;
-      correctAnswer();
-    }
-    // wrong answer
-    if (answer.correct) {
-      answerButton.dataset.correct != answer.correct;
-      wrongAnswers();
-    }
-    answerButton.addEventListener("click", selectAnswer);
-    answerButtonElement.appendChild(answerButton);
-  });
-}
-
-// score system
-let score = 0;
-let scores = [];
-let i = 0;
-
-function correctAnswer() {
-  // add to score
-  score++;
-  console.log(score);
-}
-
-function wrongAnswers() {
-  // subtract 5
-  time = time - 5;
-  console.log(time);
-}
-
-// reset everything each new question
-function resetState() {
-  nextButton.classList.add("hide");
-  while (answerButtonElement.firstChild) {
-    answerButtonElement.removeChild(answerButtonElement.firstChild);
-  }
-}
-
-// do something when we select the answer
-function selectAnswer(e) {
-  const selectedButton = e.target;
-  const correct = selectedButton.dataset.correct;
-  setStatusClass(document.body, correct);
-
-  Array.from(answerButtonElement.children).forEach((button) => {
-    setStatusClass(button, button.dataset.correct);
-  });
-  // need to check how many questions
-  if (randomQuestion.length > currentQuestionIndex + 1) {
-    nextButton.classList.remove("hide");
-  } else {
-    // change start button to restart
-    startButton.innerText = "Restart";
-    startButton.classList.remove("hide");
-  }
-}
-
-// add classes to change color of correct and wrong answers
-function setStatusClass(element, correct) {
-  clearStatusClass(element);
-  if (correct) {
-    element.classList.add("correct");
-  } else {
-    element.classList.add("wrong");
-  }
-}
-
-// remove classes for new question
-function clearStatusClass(element) {
-  element.classList.remove("correct");
-  element.classList.remove("wrong");
-}
-
-//timer function
-let time = 5;
-let timerEl = document.querySelector("#timer");
-function timer() {
-  let timeInterval = setInterval(function () {
-    timerEl.innerHTML = "Timer: " + time + " seconds";
-    time--;
-
-    if (time <= -1 || time === 0) {
-      timerEl.innerHTML = "Game Over!";
-      clearInterval(timeInterval);
-      formEl.classList.remove("hide");
-      endGame();
-    }
-  }, 1000);
-}
-
-// endGame function
-function endGame() {
-  // replace div question container with text
-  questionElement.innerHTML = "<h1>Done!</h1>";
-
-  // final score
-  let finalScore = document.querySelector("#answer-buttons");
-  finalScore.innerHTML = "<h2>Final Score = " + score + "!</h2>";
-
-  // form element
-  let formEl = document.querySelector("#form");
-  formEl.addEventListener("submit", leaderboard);
-}
-
-// leaderboard function
-let leaderboard = function (event) {
-  // prevent reload page
-  event.preventDefault();
-  questionElement.innerHTML = "<h1>Leaderboard</h1>";
-  formEl.classList.add("hide");
-
-  // add initial input and make it a string
-  let initialsInput = document.querySelector("input[name='initial']").value;
-  let scoreObj = {
-    name: initialsInput,
-    scoreOf: score.toString(),
-  };
-
-  if (!initialsInput) {
-    alert("You must provide your initials!");
-    return false;
-  }
-
-  let highScores = localStorage.getItem("highScores");
-  let highScore = JSON.parse(highScores);
-
-  if (highScore == null) {
-    highScore = [];
-  }
-
-  highScore.push(scoreObj);
-
-  for (let i = 0; i < highScore.length; i++) {
-    let highScoreLi = document.createElement("li");
-    highScoreLi.id = "highScoreLiId";
-    highScoreLi.textContent = highScore[i].name + " - " + highScore[i].scoreOf;
-    document.getElementById("results").appendChild(highScoreLi);
-  }
-
-  localStorage.setItem("highScores", JSON.stringify(highScore));
-  document.getElementById("initialsInput").remove();
-};
 
 // questionsBank pool, array of objects with 3 properties each
 const questionsBank = [
@@ -283,3 +92,205 @@ const questionsBank = [
     ],
   },
 ];
+
+startButton.addEventListener("click", startGame);
+
+// nextButton will add new question
+nextButton.addEventListener("click", () => {
+  currentQuestionIndex++;
+  setNextQuestion();
+});
+
+// possible function for start the game
+function startGame() {
+  // add  class 'hide' to startButton
+  startButton.classList.add("hide");
+
+  // add class 'hide' to h1 and h2 welcome
+  codeQuizWelcome.classList.add("hide");
+  codeQuizDescription.classList.add("hide");
+
+  // sort 1 question in the questions using arrow function, Math.random = number (1-0) - .5 = 50% + or - number
+  randomQuestion = questionsBank.sort(() => Math.random() - 0.5);
+
+  // set the current question to 0 (first question)
+  currentQuestionIndex = 0;
+
+  // remove class 'hide' from questionContainerElement
+  questionContainerElement.classList.remove("hide");
+  setNextQuestion();
+  timer();
+}
+
+// function for the next question
+function setNextQuestion() {
+  showQuestion(randomQuestion[currentQuestionIndex]);
+}
+
+// showQuestion function take 'question' object from array
+function showQuestion(question) {
+  resetState();
+  questionElement.innerText = question.question;
+
+  // add the answers with function to create buttons for each
+  question.answers.forEach((answer) => {
+    const answerButton = document.createElement("button");
+    answerButton.innerText = answer.text;
+    answerButton.classList.add("btn");
+
+    // correct answer
+    if (answer.correct) {
+      answerButton.dataset.correct = answer.correct;
+      score++;
+      console.log(score);
+    }
+    // wrong answer
+    if (answer.correct) {
+      answerButton.dataset.correct != answer.correct;
+      time = time - 10;
+      console.log(time);
+    }
+    answerButton.addEventListener("click", selectAnswer);
+    answerButtonElement.appendChild(answerButton);
+  });
+}
+
+// score system
+let score = 0;
+let scores = [];
+let i = 0;
+
+// reset everything each new question
+function resetState() {
+  nextButton.classList.add("hide");
+  while (answerButtonElement.firstChild) {
+    answerButtonElement.removeChild(answerButtonElement.firstChild);
+  }
+}
+
+// do something when we select the answer
+function selectAnswer(e) {
+  const selectedButton = e.target;
+  const correct = selectedButton.dataset.correct;
+  setStatusClass(document.body, correct);
+
+  Array.from(answerButtonElement.children).forEach((button) => {
+    setStatusClass(button, button.dataset.correct);
+  });
+  // need to check how many questions
+  if (randomQuestion.length > currentQuestionIndex + 1) {
+    nextButton.classList.remove("hide");
+  } else {
+    // change start button to restart
+    startButton.innerText = "Restart";
+    startButton.classList.remove("hide");
+  }
+}
+
+// add classes to change color of correct and wrong answers
+function setStatusClass(element, correct) {
+  clearStatusClass(element);
+  if (correct) {
+    element.classList.add("correct");
+  } else {
+    element.classList.add("wrong");
+  }
+}
+
+// remove classes for new question
+function clearStatusClass(element) {
+  element.classList.remove("correct");
+  element.classList.remove("wrong");
+}
+
+//timer function
+let time = 60;
+let timerEl = document.querySelector("#timer");
+function timer() {
+  let timeInterval = setInterval(function () {
+    timerEl.innerHTML = "Timer: " + time + " seconds";
+    time--;
+
+    if (time <= -1 || time === 0) {
+      timerEl.innerHTML = "Game Over!";
+      clearInterval(timeInterval);
+      formEl.classList.remove("hide");
+      endGame();
+    }
+  }, 1000);
+}
+
+// click leaderboard button shows list with scores
+// leaderboardBtn.addEventListener("click");
+
+// endGame function
+function endGame() {
+  // replace div question container with text
+  questionElement.innerHTML = "<h1>Done!</h1>";
+
+  // final score
+  let finalScore = document.querySelector("#answer-buttons");
+  finalScore.innerHTML = "<h2>Final Score = " + score + "!</h2>";
+
+  // event listener: when initial submit button is pressed...
+  formEl.addEventListener("submit", leaderboard);
+  startButton.innerText = "Restart";
+  startButton.classList.remove("hide");
+}
+
+// clear scores function
+let clearScores = function () {
+  localStorage.removeItem("highScores");
+  document.getElementById("highScoreLiId").remove();
+};
+
+//function to create the final score
+let leaderboard = function (event) {
+  event.preventDefault();
+  submitButton.classList.add("hide");
+  startButton.addEventListener(
+    "click",
+    function () {
+      location.reload(1);
+    },
+    1000
+  );
+
+  // clear high scores button
+  let clearEl = document.createElement("button");
+  clearEl.textContent = "Clear high scores";
+  clearEl.id = "clear";
+  clearEl.classList.add("btn");
+  document.getElementById("results").appendChild(clearEl);
+  clearEl.addEventListener("click", clearScores);
+
+  let initialsInput = document.querySelector("input[name='initial']").value;
+  let scoreObj = {
+    name: initialsInput,
+    scoreOf: score.toString(),
+  };
+
+  if (!initialsInput) {
+    alert("Initials please!");
+    return false;
+  }
+
+  let highScores = localStorage.getItem("highScores");
+  let highScore = JSON.parse(highScores);
+
+  if (highScore == null) {
+    highScore = [];
+  }
+
+  highScore.push(scoreObj);
+
+  for (let i = 0; i < highScore.length; i++) {
+    let highScoreLi = document.createElement("li");
+    highScoreLi.id = "highScoreLiId";
+    highScoreLi.textContent = highScore[i].name + " - " + highScore[i].scoreOf;
+    document.getElementById("results").appendChild(highScoreLi);
+  }
+
+  localStorage.setItem("highScores", JSON.stringify(highScore));
+  document.getElementById("initialsInput").remove();
+};
