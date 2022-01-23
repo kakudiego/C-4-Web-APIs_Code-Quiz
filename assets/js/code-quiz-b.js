@@ -84,6 +84,60 @@ const questionsBank = [
       { text: "top(x, y)", correct: false },
     ],
   },
+  {
+    question: "A very useful tool for used during development and debugging for printing content to the debugger is:",
+    answers: [
+      { text: "Javascript", correct: false },
+      { text: "terminal/bash", correct: false },
+      { text: "for loop", correct: false },
+      { text: "console.log", correct: true },
+    ],
+  },
+  {
+    question: "String values must be enclosed within ____ when being assigned to variables.",
+    answers: [
+      { text: "commas", correct: false },
+      { text: "curly brackets", correct: false },
+      { text: "quotes", correct: true },
+      { text: "parenthesis", correct: false },
+    ],
+  },
+  {
+    question: "Commonly used data types do not include:",
+    answers: [
+      { text: "strings", correct: false },
+      { text: "booleans", correct: true },
+      { text: "alerts", correct: false },
+      { text: "numbers", correct: false },
+    ],
+  },
+  {
+    question: "Arrays in JavaScript can be used to store:",
+    answers: [
+      { text: "numbers and strings", correct: false },
+      { text: "other arrays", correct: false },
+      { text: "booleans", correct: true },
+      { text: "all of the above", correct: false },
+    ],
+  },
+  {
+    question: "How to write an IF statement in JavaScript?",
+    answers: [
+      { text: "if i = 5", correct: false },
+      { text: "if i == 5 then", correct: false },
+      { text: "if (i == 5)", correct: true },
+      { text: "if i + 5 then", correct: false },
+    ],
+  },
+  {
+    question: "How does a FOR loop start?",
+    answers: [
+      { text: "while (i <= 10)", correct: true },
+      { text: "while i = 1 to 10", correct: false },
+      { text: "while (i <= 10; i++)", correct: false },
+      { text: "while (i <= 10 = i++)", correct: false },
+    ],
+  },
 ];
 
 startButton.addEventListener("click", startGame);
@@ -118,6 +172,10 @@ function startGame() {
 // function for the next question
 function setNextQuestion() {
   showQuestion(randomQuestion[currentQuestionIndex]);
+
+  if (currentQuestionIndex >= randomQuestion.length) {
+    endGame();
+  }
 }
 
 // score system
@@ -207,7 +265,7 @@ function clearStatusClass(element) {
 }
 
 //timer function
-let time = 60;
+let time = 30;
 let timerEl = document.querySelector("#timer");
 function timer() {
   let timeInterval = setInterval(function () {
