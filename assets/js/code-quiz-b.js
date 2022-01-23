@@ -106,8 +106,8 @@ const questionsBank = [
     question: "Commonly used data types do not include:",
     answers: [
       { text: "strings", correct: false },
-      { text: "booleans", correct: true },
-      { text: "alerts", correct: false },
+      { text: "booleans", correct: false },
+      { text: "alerts", correct: true },
       { text: "numbers", correct: false },
     ],
   },
@@ -116,8 +116,8 @@ const questionsBank = [
     answers: [
       { text: "numbers and strings", correct: false },
       { text: "other arrays", correct: false },
-      { text: "booleans", correct: true },
-      { text: "all of the above", correct: false },
+      { text: "booleans", correct: false },
+      { text: "all of the above", correct: true },
     ],
   },
   {
@@ -172,10 +172,6 @@ function startGame() {
 // function for the next question
 function setNextQuestion() {
   showQuestion(randomQuestion[currentQuestionIndex]);
-
-  if (currentQuestionIndex >= randomQuestion.length) {
-    endGame();
-  }
 }
 
 // score system
@@ -265,12 +261,19 @@ function clearStatusClass(element) {
 }
 
 //timer function
-let time = 30;
+let time = 60;
 let timerEl = document.querySelector("#timer");
 function timer() {
   let timeInterval = setInterval(function () {
     timerEl.innerHTML = "Timer: " + time + " seconds";
     time--;
+
+    // call endGame when no more questions
+    if (currentQuestionIndex >= randomQuestion.length) {
+      // stop time
+      clearInterval(timeInterval);
+      endGame();
+    }
 
     if (time <= 0 || time === 0) {
       timerEl.innerHTML = "Game Over!";
@@ -283,6 +286,9 @@ function timer() {
 
 // endGame function
 function endGame() {
+  // show the form
+  formEl.classList.remove("hide");
+
   // replace div question container with text
   questionElement.innerHTML = "<h1>Done!</h1>";
 
@@ -353,6 +359,7 @@ let leaderboard = function (event) {
   document.querySelector("#initialsInput").remove();
 };
 
+// sadly no time to add an external leaderboard page
 // let playerScore = document.querySelectorAll(".player-score");
 
 // // leaderboard button shows list with scores
